@@ -16,8 +16,9 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		gap: 1vh; /* I'll regret this, right? */
 		height: 100%;
-		color: silver;
+		color: #e4e4e4;
 	}
 	[data-sort-direction='1'] .down {
 		color: var(--accent-color);

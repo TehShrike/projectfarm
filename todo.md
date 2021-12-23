@@ -5,3 +5,4 @@
 - description at top of page of the top 4 scissors
 - description of other tests?
 - make page not look like ass
+- allow tables to go full-width, but make sure they stay centered

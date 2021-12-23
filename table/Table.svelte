@@ -10,9 +10,18 @@
 		desc: -1,
 	}
 
-	const get_column_sort = (target_column, sorts) => {
-		const found = sorts.find(({ column }) => column === target_column)
-		return found
+	const get_last_column_sort = (target_column, sorts) => {
+		if (sorts.length === 0) {
+			return sort_directions.none
+		}
+
+		const last_sort = sorts[sorts.length - 1]
+
+		if (last_sort.column === target_column) {
+			return last_sort
+		}
+
+		return sort_directions.none
 	}
 
 	const get_actual_value = row_element => typeof row_element === `object`
@@ -102,7 +111,7 @@
 				>
 					{column.name}
 					<span class=arrows>
-						<Arrows direction={get_column_sort(column, sorts)?.direction} />
+						<Arrows direction={get_last_column_sort(column, sorts)?.direction} />
 					</span>
 				</th>
 			{/each}
@@ -139,7 +148,7 @@
 		padding: 8px;
 		vertical-align: bottom;
 		cursor: pointer;
-		padding-right: 18px
+		padding-right: 22px
 	}
 	th, td {
 		border: 1px solid gray;

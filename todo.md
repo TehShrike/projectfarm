@@ -1,0 +1,6 @@
+- only show the most recent sort direction
+- try only showing the active sort, hide all the light gray
+- embed YouTube video `<iframe width="560" height="315" src="https://www.youtube.com/embed/koqa9YgcmuU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+- screencap the top 4 scissors
+- description at top of page of the top 4 scissors
+- description of other tests?

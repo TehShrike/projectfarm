@@ -33,6 +33,7 @@ const build_html = async({ page_name }) => {
 		// name: page_name,
 		file: `./tmp.js`,
 		format: `cjs`,
+		exports: `default`,
 	})
 
 	const Page = require(`./tmp.js`)

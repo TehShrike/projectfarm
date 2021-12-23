@@ -1,1 +1,4 @@
 node_modules
+tmp.js
+.ds_store
+public/*/*

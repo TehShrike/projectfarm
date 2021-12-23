@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "live-server public",
+    "build": "node build_page.js scissors"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,10 @@
     "live-server": "^1.2.1"
   },
   "dependencies": {
+    "make-dir": "^3.1.0",
     "rollup": "^2.61.1",
     "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^7.1.0",
     "svelte": "^3.44.3"
   }

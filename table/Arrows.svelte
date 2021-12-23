@@ -1,0 +1,29 @@
+<script>
+	export let direction = 0
+</script>
+
+<span class=container data-sort-direction={direction} on:click>
+	<span class=up>
+		▲
+	</span>
+	<span class=down>
+		▼
+	</span>
+</span>
+
+<style>
+	.container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+		color: silver;
+	}
+	[data-sort-direction='1'] .down {
+		color: var(--accent-color);
+	}
+	[data-sort-direction='-1'] .up {
+		color: var(--accent-color);
+	}
+
+</style>

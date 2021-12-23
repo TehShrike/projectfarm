@@ -13,6 +13,7 @@
 
 <style>
 	.container {
+		font-size: 12px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

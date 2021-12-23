@@ -12,7 +12,7 @@ const dev = true
 const build_html = async({ page_name }) => {
 	const page_path = `pages/${page_name}/Index.svelte`
 
-	const template = await fs.readFile(`./template.html`, { encoding: `utf8` })
+	const template = await fs.readFile(`./template/template.html`, { encoding: `utf8` })
 
 	const bundle = await rollup.rollup({
 		input: page_path,

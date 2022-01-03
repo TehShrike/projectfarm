@@ -11,20 +11,6 @@
 		desc: -1,
 	}
 
-	const get_last_column_sort = (target_column, sorts) => {
-		if (sorts.length === 0) {
-			return sort_directions.none
-		}
-
-		const last_sort = sorts[sorts.length - 1]
-
-		if (last_sort.column === target_column) {
-			return last_sort
-		}
-
-		return sort_directions.none
-	}
-
 	const get_actual_value = row_element => typeof row_element === `object`
 		? row_element.text
 		: row_element
@@ -50,57 +36,34 @@
 		}
 	}
 
-	let sorts = []
+	let sort = null
 
 	const apply_sort = column_index => {
-		const clicked_column = columns[column_index]
-		const current_sort_index = sorts.findIndex(({ column }) => column === clicked_column)
-
-		const current_sort_direction = current_sort_index !== -1
-			? sorts[current_sort_index].direction
+		const current_direction = sort?.column_index === column_index
+			? sort.direction
 			: sort_directions.none
 
-		if (current_sort_index !== -1) {
-			sorts.splice(current_sort_index, 1)
-			sorts = sorts
+		sort = {
+			column_index,
+			direction: get_next_sort_direction(current_direction),
 		}
-
-		const next_sort_direction = get_next_sort_direction(current_sort_direction)
-
-		sorts = next_sort_direction === sort_directions.none
-			? sorts
-			: [
-				...sorts,
-				{
-					column_index,
-					column: clicked_column,
-					direction: get_next_sort_direction(current_sort_direction),
-				},
-			]
 	}
 
 	$: apply_sort(initial_sort_column)
 
 	$: sorted_rows = values.slice().sort(
-		(row_a, row_b) => sorts.reduceRight(
-			(sort_order, { column_index, direction }) => {
-				if (sort_order !== 0) {
-					return sort_order
-				}
+		(row_a, row_b) => {
+			const value_a = row_a[sort.column_index]
+			const value_b = row_b[sort.column_index]
 
-				const value_a = row_a[column_index]
-				const value_b = row_b[column_index]
-
-				if (value_a === value_b) {
-					return 0
-				} else if (value_a < value_b) {
-					return direction
-				} else {
-					return -direction
-				}
-			},
-			sort_directions.none,
-		),
+			if (value_a === value_b) {
+				return 0
+			} else if (value_a < value_b) {
+				return sort.direction
+			} else {
+				return -sort.direction
+			}
+		},
 	)
 </script>
 
@@ -114,7 +77,7 @@
 				>
 					{column.name}
 					<span class=arrows>
-						<Arrows direction={get_last_column_sort(column, sorts)?.direction} />
+						<Arrows direction={sort.column_index === column_index ? sort.direction : sort.none} />
 					</span>
 				</th>
 			{/each}
@@ -171,6 +134,7 @@
 	
 	th {
 		position: relative;
+		user-select: none;
 	}
 	.arrows {
 		position: absolute;

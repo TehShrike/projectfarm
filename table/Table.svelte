@@ -3,6 +3,7 @@
 	export let columns
 	export let values
 	export let identifier
+	export let initial_sort_column = 0
 	
 	const sort_directions = {
 		asc: 1,
@@ -77,6 +78,8 @@
 				},
 			]
 	}
+
+	$: apply_sort(initial_sort_column)
 
 	$: sorted_rows = values.slice().sort(
 		(row_a, row_b) => sorts.reduceRight(

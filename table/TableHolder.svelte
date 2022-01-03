@@ -7,6 +7,11 @@
 		width: 100%;
 		max-width: 1000px;
 		display: flex;
-		overflow-x: scroll;
+	}
+
+	@media screen and (max-width: 800px) {
+		.table_holder {
+			overflow-x: scroll;
+		}
 	}
 </style>

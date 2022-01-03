@@ -17,7 +17,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: 1vh; /* I'll regret this, right? */
+		gap: 5%; /* I'll regret this, right? */
 		height: 100%;
 		color: #e4e4e4;
 	}

@@ -65,6 +65,13 @@
 			}
 		},
 	)
+
+	const prevent_default_on_multiple_clicks = event => {
+		const click_count = event.detail
+		if (click_count > 1) {
+			event.preventDefault()
+		}
+	}
 </script>
 
 <table data-table-identifier={identifier}>
@@ -73,6 +80,7 @@
 			{#each columns as column, column_index}
 				<th
 					data-type={column.type || `string`}
+					on:mousedown={prevent_default_on_multiple_clicks}
 					on:click|preventDefault={() => apply_sort(column_index)}
 				>
 					{column.name}
@@ -134,7 +142,6 @@
 	
 	th {
 		position: relative;
-		user-select: none;
 	}
 	.arrows {
 		position: absolute;

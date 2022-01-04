@@ -4,6 +4,7 @@ const fs = require(`fs/promises`)
 const svelte = require(`rollup-plugin-svelte`)
 const resolve = require(`rollup-plugin-node-resolve`)
 const make_dir = require(`make-dir`)
+const cpy = require(`cpy`)
 
 const [ ,, page_name ] = process.argv
 
@@ -12,7 +13,7 @@ const dev = true
 const build_html = async({ page_name }) => {
 	const page_path = `pages/${page_name}/Index.svelte`
 
-	const template = await fs.readFile(`./template/template.html`, { encoding: `utf8` })
+	const template_promise = fs.readFile(`./template/template.html`, { encoding: `utf8` })
 
 	const bundle = await rollup.rollup({
 		input: page_path,
@@ -40,7 +41,7 @@ const build_html = async({ page_name }) => {
 
 	const { html, css, head } = Page.render()
 
-	const output = template.replace(`<!-- content -->`, `
+	const output = (await template_promise).replace(`<!-- content -->`, `
 		${html}
 		<style>
 			${css.code}
@@ -48,9 +49,17 @@ const build_html = async({ page_name }) => {
 		<script src="./hydrate.js"></script>
 	`).replace(`<!-- head -->`, head)
 
-	make_dir(`public/${page_name}`)
-
 	await fs.writeFile(`public/${page_name}/index.html`, output)
+}
+
+const build_page = async({ page_name }) => {
+	const target = `public/${page_name}`
+	await make_dir(target)
+
+	await Promise.all([
+		build_html({ page_name }).then(() => build_hydration_script({ page_name })),
+		cpy(`pages/${page_name}/img`, `${target}/img`),
+	])
 }
 
 const build_hydration_script = async({ page_name }) => {
@@ -77,9 +86,7 @@ const build_hydration_script = async({ page_name }) => {
 	})
 }
 
-build_html({ page_name }).then(
-	() => build_hydration_script({ page_name }),
-).then(() => {
+build_page({ page_name }).then(() => {
 	console.log(`👌`)
 }).catch(err => {
 	console.error(err)

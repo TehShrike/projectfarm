@@ -58,7 +58,7 @@ const build_page = async({ page_name }) => {
 
 	await Promise.all([
 		build_html({ page_name }).then(() => build_hydration_script({ page_name })),
-		cpy(`pages/${page_name}/img`, `${target}/img`),
+		cpy(`pages/${page_name}/img`, `${target}/img`, { overwrite: false }),
 	])
 }
 

@@ -53,8 +53,8 @@
 
 	$: sorted_rows = values.slice().sort(
 		(row_a, row_b) => {
-			const value_a = row_a[sort.column_index]
-			const value_b = row_b[sort.column_index]
+			const value_a = get_actual_value(row_a[sort.column_index])
+			const value_b = get_actual_value(row_b[sort.column_index])
 
 			if (value_a === value_b) {
 				return 0

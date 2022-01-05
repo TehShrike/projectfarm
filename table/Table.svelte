@@ -8,7 +8,6 @@
 	
 	const sort_directions = {
 		asc: 1,
-		none: 0,
 		desc: -1,
 	}
 
@@ -27,26 +26,16 @@
 		return actual_value
 	}
 
-	const get_next_sort_direction = current_direction => {
-		if (current_direction === sort_directions.none) {
-			return sort_directions.desc
-		} else if (current_direction === sort_directions.desc) {
-			return sort_directions.asc
-		} else if (current_direction === sort_directions.asc) {
-			return sort_directions.none
-		}
-	}
-
 	let sort = null
 
 	const apply_sort = column_index => {
-		const current_direction = sort?.column_index === column_index
-			? sort.direction
-			: sort_directions.none
+		const next_sort_direction = sort?.column_index === column_index && sort.direction === sort_directions.desc
+			? sort_directions.asc
+			: sort_directions.desc
 
 		sort = {
 			column_index,
-			direction: get_next_sort_direction(current_direction),
+			direction: next_sort_direction,
 		}
 	}
 
@@ -86,7 +75,7 @@
 				>
 					{column.name}
 					<span class=arrows>
-						<Arrows direction={sort.column_index === column_index ? sort.direction : sort.none} />
+						<Arrows direction={sort.column_index === column_index ? sort.direction : null} />
 					</span>
 				</th>
 			{/each}

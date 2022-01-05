@@ -1,5 +1,5 @@
 <script>
-	export let direction = 0
+	export let direction = null
 </script>
 
 <span class=container data-sort-direction={direction} on:click>

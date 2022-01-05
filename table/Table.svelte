@@ -4,6 +4,7 @@
 	export let values
 	export let identifier
 	export let initial_sort_column = 0
+	export let links_are_external = true
 	
 	const sort_directions = {
 		asc: 1,
@@ -97,7 +98,11 @@
 				{#each columns as column, index}
 					<td data-type={column.type}>
 						{#if typeof row[index] === `object`}
-							<a href={row[index].link}>
+							<a
+								href={row[index].link}
+								target={links_are_external ? `_blank` : `_self`}
+								rel={links_are_external ? `external nofollow noopener` : ``}
+							>
 								{display_column(column, row[index])}
 							</a>
 						{:else}

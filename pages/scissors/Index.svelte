@@ -32,7 +32,7 @@
 </p>
 
 <p>
-	<strong>Sharpness numbers:</strong> for context, a double edge razor blade is around 50, a utility blade is anywhere from 150 to 200, and a new high-end cutlery edge is anywhere from 250 to 350.
+	<strong>Sharpness numbers:</strong> lower is better – for context, a double edge razor blade is around 50, a utility blade is anywhere from 150 to 200, and a new high-end cutlery edge is anywhere from 250 to 350.
 </p>
 
 <TableHolder>
